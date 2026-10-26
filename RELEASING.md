@@ -42,7 +42,8 @@ pushed. Branch pushes run `ci.yml` instead.
    | `-ldflags "-s -w"` | Drops the symbol table and debug information, which makes the binary about 30% smaller |
    | `-ldflags "-X main.version=<tag>"` | Stamps the version, which `zipcode -version` prints |
 
-3. **Package.** Each binary goes into an archive together with the README:
+3. **Package.** Each binary goes into an archive together with the README and
+   the LICENSE:
    - **Linux:** `zipcode_<version>_linux_<arch>.tar.gz`. A tar archive keeps
      the file's executable permission, so the binary runs as soon as it is
      extracted.

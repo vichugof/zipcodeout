@@ -20,7 +20,7 @@ cross:
 		CGO_ENABLED=0 GOOS=$$os GOARCH=$$arch go build -trimpath -ldflags "$(LDFLAGS)" -o $$out $(PKG) || exit 1; \
 	done
 
-## package: archive each binary with the README into dist/release/, plus SHA256SUMS
+## package: archive each binary with the README and LICENSE into dist/release/, plus SHA256SUMS
 package: cross
 	@rm -rf dist/release && mkdir -p dist/release
 	@for bin in dist/$(BINARY)-*; do \
@@ -28,14 +28,14 @@ package: cross
 		os=$${platform%-*}; arch=$${platform#*-}; \
 		archive=$(BINARY)_$(VERSION)_$${os}_$$arch; \
 		stage=dist/stage-$$os-$$arch; rm -rf $$stage; mkdir -p $$stage; \
-		cp README.md $$stage/; \
+		cp README.md LICENSE $$stage/; \
 		if [ "$$os" = windows ]; then \
 			cp $$bin $$stage/$(BINARY).exe; \
-			(cd $$stage && zip -qX ../release/$$archive.zip $(BINARY).exe README.md) || exit 1; \
+			(cd $$stage && zip -qX ../release/$$archive.zip $(BINARY).exe README.md LICENSE) || exit 1; \
 			echo "packaged dist/release/$$archive.zip"; \
 		else \
 			cp $$bin $$stage/$(BINARY); \
-			tar -C $$stage --owner=0 --group=0 --numeric-owner -czf dist/release/$$archive.tar.gz $(BINARY) README.md || exit 1; \
+			tar -C $$stage --owner=0 --group=0 --numeric-owner -czf dist/release/$$archive.tar.gz $(BINARY) README.md LICENSE || exit 1; \
 			echo "packaged dist/release/$$archive.tar.gz"; \
 		fi; \
 		rm -rf $$stage; \

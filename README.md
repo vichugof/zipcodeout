@@ -199,3 +199,7 @@ also builds the binaries. The live test runs weekly and on manual dispatch.
 To publish a release, push a tag such as `v0.2.0`. The `release` workflow
 tests the tagged commit on both systems, then publishes the binaries. See
 [RELEASING.md](RELEASING.md).
+
+## License
+
+zipcode is released under the [MIT License](LICENSE).
