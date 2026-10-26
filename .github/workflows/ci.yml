@@ -2,6 +2,8 @@ name: ci
 
 on:
   push:
+    # Tags are tested and released by release.yml.
+    branches: ["**"]
   pull_request:
   workflow_dispatch:
   schedule:

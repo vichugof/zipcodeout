@@ -4,7 +4,7 @@ VERSION   ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo de
 LDFLAGS   := -s -w -X main.version=$(VERSION)
 PLATFORMS := linux/amd64 linux/arm64 windows/amd64 windows/arm64
 
-.PHONY: build cross test test-unit test-e2e test-live cover vet lint fmt fmt-check check clean
+.PHONY: build cross package test test-unit test-e2e test-live cover vet lint fmt fmt-check check clean
 
 ## build: build bin/zipcode for this machine
 build:
@@ -19,6 +19,28 @@ cross:
 		echo "building $$out"; \
 		CGO_ENABLED=0 GOOS=$$os GOARCH=$$arch go build -trimpath -ldflags "$(LDFLAGS)" -o $$out $(PKG) || exit 1; \
 	done
+
+## package: archive each binary with the README into dist/release/, plus SHA256SUMS
+package: cross
+	@rm -rf dist/release && mkdir -p dist/release
+	@for bin in dist/$(BINARY)-*; do \
+		platform=$${bin#dist/$(BINARY)-}; platform=$${platform%.exe}; \
+		os=$${platform%-*}; arch=$${platform#*-}; \
+		archive=$(BINARY)_$(VERSION)_$${os}_$$arch; \
+		stage=dist/stage-$$os-$$arch; rm -rf $$stage; mkdir -p $$stage; \
+		cp README.md $$stage/; \
+		if [ "$$os" = windows ]; then \
+			cp $$bin $$stage/$(BINARY).exe; \
+			(cd $$stage && zip -qX ../release/$$archive.zip $(BINARY).exe README.md) || exit 1; \
+			echo "packaged dist/release/$$archive.zip"; \
+		else \
+			cp $$bin $$stage/$(BINARY); \
+			tar -C $$stage --owner=0 --group=0 --numeric-owner -czf dist/release/$$archive.tar.gz $(BINARY) README.md || exit 1; \
+			echo "packaged dist/release/$$archive.tar.gz"; \
+		fi; \
+		rm -rf $$stage; \
+	done
+	@cd dist/release && sha256sum * > SHA256SUMS && echo "wrote dist/release/SHA256SUMS"
 
 ## test: run the unit and end-to-end tests
 test:
