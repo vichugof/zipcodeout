@@ -1,0 +1,31 @@
+version: "2"
+
+linters:
+  enable:
+    - bodyclose
+    - errorlint
+    - gosec
+    - misspell
+    - nilerr
+    - noctx
+    - usetesting
+  exclusions:
+    presets:
+      - std-error-handling
+    rules:
+      # Tests and the test-only fake API build commands and servers from test data.
+      - path: _test\.go
+        linters:
+          - gosec
+      - path: internal/fakeapi/
+        linters:
+          - gosec
+
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/vichugof/zipcodeout

@@ -1,0 +1,19 @@
+{
+  "ip": "198.51.100.23",
+  "success": true,
+  "type": "IPv4",
+  "continent": "Europe",
+  "continent_code": "EU",
+  "country": "France",
+  "country_code": "FR",
+  "region": "Île-de-France",
+  "region_code": "IDF",
+  "city": "Paris",
+  "latitude": 48.8566,
+  "longitude": 2.3522,
+  "is_eu": true,
+  "postal": "",
+  "calling_code": "33",
+  "capital": "Paris",
+  "borders": "AD,BE,CH,DE,ES,IT,LU,MC"
+}

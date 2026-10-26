@@ -1,0 +1,38 @@
+{
+  "ip": "203.0.113.7",
+  "success": true,
+  "type": "IPv4",
+  "continent": "North America",
+  "continent_code": "NA",
+  "country": "United States",
+  "country_code": "US",
+  "region": "New York",
+  "region_code": "NY",
+  "city": "New York",
+  "latitude": 40.7128,
+  "longitude": -74.006,
+  "is_eu": false,
+  "postal": "10001",
+  "calling_code": "1",
+  "capital": "Washington D.C.",
+  "borders": "CA,MX",
+  "flag": {
+    "img": "https://cdn.ipwhois.io/flags/us.svg",
+    "emoji": "🇺🇸",
+    "emoji_unicode": "U+1F1FA U+1F1F8"
+  },
+  "connection": {
+    "asn": 64500,
+    "org": "Example Networks",
+    "isp": "Example ISP",
+    "domain": "example.net"
+  },
+  "timezone": {
+    "id": "America/New_York",
+    "abbr": "EDT",
+    "is_dst": true,
+    "offset": -14400,
+    "utc": "-04:00",
+    "current_time": "2026-10-26T11:00:00-04:00"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "ipVersion": 4,
+  "ipAddress": "198.51.100.23",
+  "latitude": 45.764,
+  "longitude": 4.8357,
+  "countryName": "France",
+  "countryCode": "FR",
+  "capital": "Paris",
+  "phoneCodes": [33],
+  "timeZones": ["Europe/Paris"],
+  "zipCode": "-",
+  "cityName": "Lyon",
+  "regionName": "Auvergne-Rhône-Alpes",
+  "regionCode": "ARA",
+  "continent": "Europe",
+  "continentCode": "EU",
+  "currencies": ["EUR"],
+  "languages": ["fr"],
+  "asn": "64501",
+  "asnOrganization": "Example Telecom",
+  "isProxy": false
+}

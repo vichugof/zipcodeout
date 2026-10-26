@@ -1,0 +1,22 @@
+{
+  "ipVersion": 4,
+  "ipAddress": "203.0.113.7",
+  "latitude": 41.8781,
+  "longitude": -87.6298,
+  "countryName": "United States",
+  "countryCode": "US",
+  "capital": "Washington, D.C.",
+  "phoneCodes": [1],
+  "timeZones": ["America/Chicago"],
+  "zipCode": "60601",
+  "cityName": "Chicago",
+  "regionName": "Illinois",
+  "regionCode": "IL",
+  "continent": "Americas",
+  "continentCode": "AM",
+  "currencies": ["USD"],
+  "languages": ["en"],
+  "asn": "64500",
+  "asnOrganization": "Example Networks",
+  "isProxy": false
+}

@@ -1,0 +1,23 @@
+{
+  "ip": "192.0.2.80",
+  "network": "192.0.2.0/24",
+  "version": "IPv4",
+  "city": "Hong Kong",
+  "region": "Central and Western",
+  "region_code": "HCW",
+  "country": "HK",
+  "country_name": "Hong Kong",
+  "country_code": "HK",
+  "country_code_iso3": "HKG",
+  "continent_code": "AS",
+  "in_eu": false,
+  "postal": null,
+  "latitude": 22.2783,
+  "longitude": 114.1747,
+  "timezone": "Asia/Hong_Kong",
+  "utc_offset": "+0800",
+  "country_calling_code": "+852",
+  "currency": "HKD",
+  "asn": "AS64502",
+  "org": "Example Broadband"
+}

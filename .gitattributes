@@ -1,0 +1,3 @@
+# Keep LF everywhere so byte-exact output tests behave the same on Windows checkouts.
+* text=auto eol=lf
+*.exe binary

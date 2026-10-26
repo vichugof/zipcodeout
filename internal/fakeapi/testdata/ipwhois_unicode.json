@@ -1,0 +1,18 @@
+{
+  "ip": "192.0.2.44",
+  "success": true,
+  "type": "IPv4",
+  "continent": "South America",
+  "continent_code": "SA",
+  "country": "Brazil",
+  "country_code": "BR",
+  "region": "São Paulo",
+  "region_code": "SP",
+  "city": "São Paulo",
+  "latitude": -23.5505,
+  "longitude": -46.6333,
+  "is_eu": false,
+  "postal": "01310-100",
+  "calling_code": "55",
+  "capital": "Brasília"
+}
