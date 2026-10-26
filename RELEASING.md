@@ -80,19 +80,30 @@ trusted certificates for HTTPS connections:
 
 ## Downloading
 
-The repository is private, so its releases are private too. Only GitHub
-accounts with access to the repository can see the release page or download
-the files:
-- **Browser:** sign in to GitHub and open **Releases** on the repository page.
-- **Terminal:** `gh release download` uses your `gh` login. Without a tag
-  argument, it downloads from the latest release.
+The repository is public, so anyone can download its releases without a
+GitHub account:
+- **Browser:** open the
+  [Releases](https://github.com/vichugof/zipcodeout/releases) page and click
+  a file.
+- **Direct links:** every file has a fixed address,
+  `https://github.com/vichugof/zipcodeout/releases/download/<tag>/<file>`.
+  GitHub's API reports the latest tag at
+  `https://api.github.com/repos/vichugof/zipcodeout/releases/latest`. Without
+  a login, the API allows 60 requests an hour per IP address.
+- **gh:** `gh release download --repo vichugof/zipcodeout` downloads from the
+  latest release, and `--pattern` picks the files.
+
+The commands below download the latest release, check it against
+`SHA256SUMS`, and run it.
 
 ### Linux
 
 ```sh
-gh release download --repo vichugof/zipcodeout --pattern '*_linux_amd64.tar.gz' --pattern SHA256SUMS
+version=$(curl -fsSL https://api.github.com/repos/vichugof/zipcodeout/releases/latest | grep -m1 '"tag_name"' | cut -d'"' -f4)
+base=https://github.com/vichugof/zipcodeout/releases/download/$version
+curl -fL --remote-name-all "$base/zipcode_${version}_linux_amd64.tar.gz" "$base/SHA256SUMS"
 sha256sum --check --ignore-missing SHA256SUMS   # prints "<file>: OK"
-tar -xzf zipcode_*_linux_amd64.tar.gz zipcode
+tar -xzf "zipcode_${version}_linux_amd64.tar.gz" zipcode
 ./zipcode -version
 sudo install zipcode /usr/local/bin/            # optional: make it available everywhere
 ```
@@ -100,11 +111,14 @@ sudo install zipcode /usr/local/bin/            # optional: make it available ev
 ### Windows (PowerShell)
 
 ```powershell
-gh release download --repo vichugof/zipcodeout --pattern '*_windows_amd64.zip' --pattern SHA256SUMS
-$archive = Get-Item .\zipcode_*_windows_amd64.zip
-$expected = (Select-String -Path .\SHA256SUMS -Pattern $archive.Name -SimpleMatch).Line.Split(' ')[0]
-(Get-FileHash $archive -Algorithm SHA256).Hash -eq $expected   # True if the download is intact
-$archive | Expand-Archive -DestinationPath .\zipcode
+$version = (Invoke-RestMethod https://api.github.com/repos/vichugof/zipcodeout/releases/latest).tag_name
+$base = "https://github.com/vichugof/zipcodeout/releases/download/$version"
+$file = "zipcode_${version}_windows_amd64.zip"
+Invoke-WebRequest "$base/$file" -OutFile $file
+Invoke-WebRequest "$base/SHA256SUMS" -OutFile SHA256SUMS
+$expected = (Select-String -Path .\SHA256SUMS -Pattern $file -SimpleMatch).Line.Split(' ')[0]
+(Get-FileHash $file -Algorithm SHA256).Hash -eq $expected   # True if the download is intact
+Expand-Archive $file -DestinationPath .\zipcode
 .\zipcode\zipcode.exe -version
 ```
 

@@ -45,22 +45,25 @@ country always come from the same provider as the zip code.
 
 Each [release](https://github.com/vichugof/zipcodeout/releases) has
 ready-to-run binaries for Linux and Windows, on 64-bit Intel or AMD (`amd64`)
-and ARM (`arm64`) processors, plus a `SHA256SUMS` file. The repository is
-private, so downloading needs a GitHub login with access to it. The `gh`
-commands below use yours and download the latest release.
+and ARM (`arm64`) processors, plus a `SHA256SUMS` file. Anyone can download
+them, without a GitHub account. These commands fetch the latest release:
 
 ```sh
-# Linux
-gh release download --repo vichugof/zipcodeout --pattern '*_linux_amd64.tar.gz' --pattern SHA256SUMS
+# Linux (amd64)
+version=$(curl -fsSL https://api.github.com/repos/vichugof/zipcodeout/releases/latest | grep -m1 '"tag_name"' | cut -d'"' -f4)
+base=https://github.com/vichugof/zipcodeout/releases/download/$version
+curl -fL --remote-name-all "$base/zipcode_${version}_linux_amd64.tar.gz" "$base/SHA256SUMS"
 sha256sum --check --ignore-missing SHA256SUMS
-tar -xzf zipcode_*_linux_amd64.tar.gz zipcode
+tar -xzf "zipcode_${version}_linux_amd64.tar.gz" zipcode
 ./zipcode
 ```
 
 ```powershell
-# Windows (PowerShell)
-gh release download --repo vichugof/zipcodeout --pattern '*_windows_amd64.zip'
-Get-Item .\zipcode_*_windows_amd64.zip | Expand-Archive -DestinationPath .\zipcode
+# Windows (PowerShell, amd64)
+$version = (Invoke-RestMethod https://api.github.com/repos/vichugof/zipcodeout/releases/latest).tag_name
+$file = "zipcode_${version}_windows_amd64.zip"
+Invoke-WebRequest "https://github.com/vichugof/zipcodeout/releases/download/$version/$file" -OutFile $file
+Expand-Archive $file -DestinationPath .\zipcode
 .\zipcode\zipcode.exe
 ```
 
